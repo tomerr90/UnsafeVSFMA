@@ -79,6 +79,7 @@ public class FMASerDe {
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
             .include(FMASerDe.class.getSimpleName())
+            .exclude(FMASerDeOffHeap.class.getSimpleName())
             .build();
 
         new Runner(options).run();
