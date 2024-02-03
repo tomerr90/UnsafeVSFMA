@@ -74,26 +74,6 @@ public class FMASerDeOffHeap {
         blackhole.consume(memSegment.get(ValueLayout.JAVA_FLOAT_UNALIGNED, 40));
     }
 
-    @Benchmark
-    public void unsafeAllocations() {
-        long buffer = UNSAFE.allocateMemory(100);
-        UNSAFE.freeMemory(buffer);
-    }
-
-    @Benchmark
-    public void fmaAllocationsConfined(Blackhole blackhole) {
-        try (Arena arena = Arena.ofConfined()) {
-            blackhole.consume(arena.allocate(100));
-        }
-    }
-
-    @Benchmark
-    public void fmaAllocationsShared(Blackhole blackhole) {
-        try (Arena arena = Arena.ofShared()) {
-            blackhole.consume(arena.allocate(100));
-        }
-    }
-
     @Setup(Level.Trial)
     public void setup() {
         bufferUnsafe = UNSAFE.allocateMemory(100);
