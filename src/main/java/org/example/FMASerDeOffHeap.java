@@ -32,24 +32,24 @@ public class FMASerDeOffHeap {
 
     @Benchmark
     public void unsafeWrite() {
-        UNSAFE.putInt(bufferUnsafe, 0, 3);
-        UNSAFE.putLong(bufferUnsafe, 4, 9999999999999999L);
-        UNSAFE.putInt(bufferUnsafe, 12, 1234);
-        UNSAFE.putLong(bufferUnsafe, 16, 1234567876543224L);
-        UNSAFE.putDouble(bufferUnsafe, 24, 32.6875648);
-        UNSAFE.putDouble(bufferUnsafe, 32, 12345.99933454);
-        UNSAFE.putFloat(bufferUnsafe, 40, 77.855f);
+        UNSAFE.putInt(bufferUnsafe, 3);
+        UNSAFE.putLong(bufferUnsafe + 4, 9999999999999999L);
+        UNSAFE.putInt(bufferUnsafe + 12, 1234);
+        UNSAFE.putLong(bufferUnsafe + 16, 1234567876543224L);
+        UNSAFE.putDouble(bufferUnsafe + 24, 32.6875648);
+        UNSAFE.putDouble(bufferUnsafe + 32, 12345.99933454);
+        UNSAFE.putFloat(bufferUnsafe + 40, 77.855f);
     }
 
     @Benchmark
     public void unsafeRead(Blackhole blackhole) {
-        blackhole.consume(UNSAFE.getInt(bufferUnsafe, 0));
-        blackhole.consume(UNSAFE.getLong(bufferUnsafe, 4));
-        blackhole.consume(UNSAFE.getInt(bufferUnsafe, 12));
-        blackhole.consume(UNSAFE.getLong(bufferUnsafe, 16));
-        blackhole.consume(UNSAFE.getDouble(bufferUnsafe, 24));
-        blackhole.consume(UNSAFE.getDouble(bufferUnsafe, 32));
-        blackhole.consume(UNSAFE.getFloat(bufferUnsafe, 40));
+        blackhole.consume(UNSAFE.getInt(bufferUnsafe));
+        blackhole.consume(UNSAFE.getLong(bufferUnsafe + 4));
+        blackhole.consume(UNSAFE.getInt(bufferUnsafe + 12));
+        blackhole.consume(UNSAFE.getLong(bufferUnsafe + 16));
+        blackhole.consume(UNSAFE.getDouble(bufferUnsafe + 24));
+        blackhole.consume(UNSAFE.getDouble(bufferUnsafe + 32));
+        blackhole.consume(UNSAFE.getFloat(bufferUnsafe + 40));
     }
 
     @Benchmark
