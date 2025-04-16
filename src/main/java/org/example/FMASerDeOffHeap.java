@@ -53,6 +53,28 @@ public class FMASerDeOffHeap {
     }
 
     @Benchmark
+    public void unsafeWriteNoBoxing() {
+        UNSAFE.putInt(bufferUnsafe, 3);
+        UNSAFE.putLong(bufferUnsafe + 4, 9999999999999999L);
+        UNSAFE.putInt(bufferUnsafe + 12, 1234);
+        UNSAFE.putLong(bufferUnsafe + 16, 1234567876543224L);
+        UNSAFE.putDouble(bufferUnsafe + 24, 32.6875648);
+        UNSAFE.putDouble(bufferUnsafe + 32, 12345.99933454);
+        UNSAFE.putFloat(bufferUnsafe + 40, 77.855f);
+    }
+
+    @Benchmark
+    public void unsafeReadNoBoxing(Blackhole blackhole) {
+        blackhole.consume(UNSAFE.getInt(bufferUnsafe));
+        blackhole.consume(UNSAFE.getLong(bufferUnsafe + 4));
+        blackhole.consume(UNSAFE.getInt(bufferUnsafe + 12));
+        blackhole.consume(UNSAFE.getLong(bufferUnsafe + 16));
+        blackhole.consume(UNSAFE.getDouble(bufferUnsafe + 24));
+        blackhole.consume(UNSAFE.getDouble(bufferUnsafe + 32));
+        blackhole.consume(UNSAFE.getFloat(bufferUnsafe + 40));
+    }
+
+    @Benchmark
     public void fmaWrite() {
         memSegment.set(ValueLayout.JAVA_INT_UNALIGNED, 0, 3);
         memSegment.set(ValueLayout.JAVA_LONG_UNALIGNED, 4, 9999999999999999L);
